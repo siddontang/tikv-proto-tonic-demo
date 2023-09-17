@@ -8,7 +8,23 @@ use kvproto;
 pub struct TiKVServer {}
 
 #[tonic::async_trait]
-impl kvproto::tikvpb::tikv_server::Tikv for TiKVServer {}
+impl kvproto::tikvpb::tikv_server::Tikv for TiKVServer {
+    async fn kv_get(
+        &self,
+        request: Request<kvproto::kvrpcpb::GetRequest>,
+    ) -> Result<Response<kvproto::kvrpcpb::GetResponse>, Status> {
+        println!("Got a request: {:?}", request);
+
+        let reply = kvproto::kvrpcpb::GetResponse {
+            region_error: None,
+            error: None,
+            value: "hello world".into(),
+            not_found: false,
+            exec_details_v2: None,
+        };
+        Ok(Response::new(reply))
+    }
+}
 
 #[tokio::main]
 async fn main() -> Result<(), Box<dyn std::error::Error>> {
