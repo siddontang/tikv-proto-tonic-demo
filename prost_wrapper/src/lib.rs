@@ -1,3 +1,5 @@
+// Copyright 2019 PingCAP, Inc.
+
 mod wrapper;
 pub use wrapper::WrapperGen;
 
