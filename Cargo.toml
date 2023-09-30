@@ -16,8 +16,11 @@ path = "src/server.rs"
 [dependencies]
 tonic = "0.10"
 prost = "0.12"
+protobuf = "2.0"
 tokio = { version = "1.0", features = ["macros", "rt-multi-thread"] }
 tonic-reflection = "0.10"
+lazy_static = "1.4.0"
 
 [build-dependencies]
 tonic-build = "0.10"
+prost_wrapper = { path = "./prost_wrapper" }

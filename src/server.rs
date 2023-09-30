@@ -15,13 +15,16 @@ impl kvproto::tikvpb::tikv_server::Tikv for TiKVServer {
     ) -> Result<Response<kvproto::kvrpcpb::GetResponse>, Status> {
         println!("Got a request: {:?}", request);
 
-        let reply = kvproto::kvrpcpb::GetResponse {
+        let mut reply = kvproto::kvrpcpb::GetResponse {
             region_error: None,
             error: None,
             value: "hello world".into(),
             not_found: false,
             exec_details_v2: None,
         };
+
+        // Support rust-protobuf methods for prost.
+        reply.set_not_found(true);
         Ok(Response::new(reply))
     }
 }
